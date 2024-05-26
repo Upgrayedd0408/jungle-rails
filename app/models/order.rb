@@ -6,4 +6,8 @@ class Order < ApplicationRecord
 
   validates :stripe_charge_id, presence: true
 
+  def total
+    line_items.inject(0) { |sum, item| sum + (item.quantity * item.product.price) }
+  end
+
 end
